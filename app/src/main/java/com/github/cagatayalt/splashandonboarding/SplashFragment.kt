@@ -34,7 +34,7 @@ class SplashFragment : Fragment() {
             }
 
 
-        }, 5000)
+        }, 3000)
 
 
         return inflater.inflate(R.layout.fragment_splash, container, false)

@@ -1,30 +1,26 @@
 package com.github.cagatayalt.splashandonboarding.onboarding
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.cagatayalt.splashandonboarding.R
+import androidx.fragment.app.Fragment
+import com.github.cagatayalt.splashandonboarding.databinding.FragmentViewPagerBinding
 import com.github.cagatayalt.splashandonboarding.onboarding.screens.OnboardingFirstScreen
 import com.github.cagatayalt.splashandonboarding.onboarding.screens.OnboardingSecondScreen
 import com.github.cagatayalt.splashandonboarding.onboarding.screens.OnboardingThirdScreen
-import kotlinx.android.synthetic.main.fragment_view_pager.view.*
 
 class ViewPagerFragment : Fragment() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var _binding: FragmentViewPagerBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentViewPagerBinding.inflate(inflater,container,false)
+        val view = binding.root
 
-        val view = inflater.inflate(R.layout.fragment_view_pager, container, false)
         val fragmentList = arrayListOf<Fragment>(
             OnboardingFirstScreen(),
             OnboardingSecondScreen(),
@@ -35,10 +31,15 @@ class ViewPagerFragment : Fragment() {
             requireActivity().supportFragmentManager,
             lifecycle
         )
+        binding.viewPager.adapter = adapter
 
-        view.viewPager.adapter = adapter
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
